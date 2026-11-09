@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root { color-scheme: light dark; --muted: #6e7781; --ok: #1f883d; --err: #cf222e; --border: #d0d7de; }
+    @media (prefers-color-scheme: dark) { :root { --muted: #8b949e; --border: #30363d; } }
+    body { width: 320px; margin: 0; padding: 14px; font: 13px/1.45 system-ui, sans-serif; }
+    h1 { font-size: 14px; margin: 0 0 10px; }
+    label { display: block; font-weight: 600; margin: 10px 0 4px; }
+    input { width: 100%; box-sizing: border-box; padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; font: inherit; }
+    button { margin-top: 12px; width: 100%; padding: 7px; border: 0; border-radius: 6px; background: var(--ok); color: #fff; font: 600 13px system-ui; cursor: pointer; }
+    button.secondary { background: transparent; color: inherit; border: 1px solid var(--border); }
+    button:disabled { opacity: .6; cursor: default; }
+    .hint { color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .status { margin-top: 10px; font-size: 12px; }
+    .ok { color: var(--ok); } .err { color: var(--err); }
+    ul { list-style: none; padding: 0; margin: 6px 0 0; font-size: 12px; }
+    li { padding: 3px 0; border-top: 1px solid var(--border); }
+    a { color: inherit; }
+    .hidden { display: none; }
+    label.check { display: flex; gap: 6px; align-items: center; font-weight: 600; margin-top: 14px; }
+    label.check input { width: auto; margin: 0; }
+    .row { display: flex; gap: 6px; }
+    .row button.small { width: auto; margin: 0; padding: 6px 12px; }
+  </style>
+</head>
+<body>
+  <h1>LeetCode → GitHub</h1>
+
+  <div id="connected" class="hidden">
+    <div>Syncing to <a id="repoLink" target="_blank"></a></div>
+    <div class="hint">Submit on LeetCode; accepted solutions are pushed automatically.</div>
+    <button id="syncRecent">Sync my last 20 accepted</button>
+    <div class="hint">Run with a leetcode.com tab open in front.</div>
+    <label class="check"><input type="checkbox" id="includeStatement"> Include problem statement</label>
+    <div class="hint">LeetCode's text. Fine while the repo is private; turn off before going public.</div>
+    <label for="anthropicKey">AI summary &amp; interviewer review</label>
+    <div class="row">
+      <input id="anthropicKey" type="password" placeholder="Claude API key (sk-ant-…)" autocomplete="off">
+      <button id="saveKey" class="small">Save</button>
+    </div>
+    <div id="keyStatus" class="hint">Optional. Adds a summary (Opus), a Google SDE-2 style review and a learning note in REVIEW.md (Sonnet), about 4–6¢ per problem.</div>
+    <button id="edit" class="secondary">Change GitHub token or repo</button>
+    <label>Recent</label>
+    <ul id="history"><li class="hint">Nothing pushed yet.</li></ul>
+  </div>
+
+  <form id="setup" class="hidden">
+    <label for="repo">Repository</label>
+    <input id="repo" placeholder="your-username/leetcode-solutions" required>
+    <label for="token">GitHub token</label>
+    <input id="token" type="password" placeholder="github_pat_…" required autocomplete="off">
+    <div class="hint"><a id="newToken" target="_blank">Create a token</a> limited to this one repo, with Contents: Read and write.</div>
+    <button type="submit">Save</button>
+  </form>
+
+  <div id="status" class="status"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
