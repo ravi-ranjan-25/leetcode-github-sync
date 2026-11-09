@@ -20,7 +20,7 @@ No server, no cookies to copy, no GitHub Actions. It runs in your browser with y
 problems/0169-majority-element/
   solution.java     your accepted code
   README.md         difficulty, solved date, topics, runtime/memory, summary, problem statement
-  REVIEW.md         the interviewer review, plus a learning note when there's a better technique
+  REVIEW.md         the interviewer review, plus a learning note
 README.md           an index of everything you've solved, regenerated on every push
 ```
 
@@ -57,10 +57,10 @@ keeps the same name and links back to the problem where you first met it.
 
 ```mermaid
 flowchart LR
-  lc["leetcode.com<br/>you submit"] -- "Accepted" --> ext["Extension<br/>(in your browser)"]
-  ext -- "submission details<br/>(your LeetCode session)" --> lc
-  ext -- "summary, review,<br/>learning note" --> claude["Claude API<br/>(optional)"]
-  ext -- "one commit" --> gh[("Your GitHub repo")]
+  lc["leetcode.com: you submit"] -->|Accepted| ext["Extension in your browser"]
+  ext -->|reads the submission| lc
+  ext -->|summary, review, learning note| claude["Claude API, optional"]
+  ext -->|one commit| gh[("Your GitHub repo")]
 ```
 
 1. A small script on leetcode.com watches for LeetCode's own "Accepted" result. **Run** never triggers it, only
